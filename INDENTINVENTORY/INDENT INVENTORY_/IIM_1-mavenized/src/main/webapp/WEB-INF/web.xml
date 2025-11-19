@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+  <!-- ... your existing servlet mappings ... -->
+  <servlet>
+    <servlet-name>ReportsServlet</servlet-name>
+    <servlet-class>com.iim.servlets.ReportsServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>SaveQuickScanRestockServlet</servlet-name>
+    <servlet-class>com.iim.servlets.quickscan.SaveQuickScanRestockServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveQuickScanRestockServlet</servlet-name>
+    <url-pattern>/save-quickscan-restock</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ReportsServlet</servlet-name>
+    <url-pattern>/reports</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DepartmentsServlet</servlet-name>
+    <servlet-class>com.iim.servlets.DepartmentsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DepartmentsServlet</servlet-name>
+    <url-pattern>/departments</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ReportsYearsServlet</servlet-name>
+    <servlet-class>com.iim.servlets.ReportsYearsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReportsYearsServlet</servlet-name>
+    <url-pattern>/reports-years</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>QuickScanServlet</servlet-name>
+    <servlet-class>com.iim.servlets.quickscan.QuickScanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>QuickScanServlet</servlet-name>
+    <url-pattern>/quickscan</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>InventoryController</servlet-name>
+    <servlet-class>com.iim.servlets.inventory.InventoryController</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ActivityLogServlet</servlet-name>
+    <servlet-class>com.iim.servlets.logs.ActivityLogServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ActivityLogServlet</servlet-name>
+    <url-pattern>/log</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ActivityLogServlet</servlet-name>
+    <url-pattern>/logs</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>InventoryController</servlet-name>
+    <url-pattern>/Inventory</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InventoryController</servlet-name>
+    <url-pattern>/items</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InventoryController</servlet-name>
+    <url-pattern>/item</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InventoryController</servlet-name>
+    <url-pattern>/item-create</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InventoryController</servlet-name>
+    <url-pattern>/item-update</url-pattern>
+  </servlet-mapping>
+
+  <!-- ====== TAMBAHAN KECIL: endpoint real-time quantity update ====== -->
+  <servlet-mapping>
+    <servlet-name>InventoryController</servlet-name>
+    <url-pattern>/item-qty</url-pattern>
+  </servlet-mapping>
+  <!-- ================================================================ -->
+
+  <servlet>
+    <servlet-name>ScanItemServlet</servlet-name>
+    <servlet-class>com.iim.servlets.quickscan.ScanItemServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScanItemServlet</servlet-name>
+    <url-pattern>/scan-item</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SearchItemsServlet</servlet-name>
+    <servlet-class>com.iim.servlets.quickscan.SearchItemsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchItemsServlet</servlet-name>
+    <url-pattern>/search-items</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>SaveQuickScanServlet</servlet-name>
+    <servlet-class>com.iim.servlets.quickscan.SaveQuickScanServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SaveQuickScanServlet</servlet-name>
+    <url-pattern>/save-quickscan</url-pattern>
+  </servlet-mapping>
+
+  <mime-mapping>
+    <extension>mp3</extension>
+    <mime-type>audio/mpeg</mime-type>
+  </mime-mapping>
+
+</web-app>

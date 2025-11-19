@@ -1,0 +1,183 @@
+/* ===== Activity Log — 8 rows fixed per page, no body scroll ===== */
+:root{
+  --bg:#ffffff; --ink:#3C3A37; --ink-strong:#4D453F; --ink-dim:#7B746D;
+  --divider:#E7E4DD; --btn:#94765E;
+  --shadow-sm:0 4px 10px rgba(50,29,11,.06);
+  --shadow:0 12px 36px rgba(50,29,11,.10), 0 6px 18px rgba(50,29,11,.06);
+  --r-lg:18px; --h:42px;
+  --thead-bg:#F4EFE8;
+
+  --rows:8;                 /* jumlah baris tetap */
+  --row-h:52px;             /* dikira oleh JS ikut ruang */
+  --thead-h:44px;
+}
+
+html,body{height:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  display:flex; flex-direction:column;
+  overflow:hidden; /* tiada scroll page */
+}
+
+/* Main */
+.main{
+  flex:1 1 auto;
+  height:var(--main-h,100vh);
+  min-height:0;
+  padding:12px;
+  overflow:hidden;
+}
+
+/* Grid: Title, Toolbar, Table (1fr) */
+.content{
+  width:min(1100px,94vw);
+  margin:0 auto;
+  height:100%;
+  min-height:0;
+  display:grid;
+  grid-template-rows:auto auto 1fr;
+  row-gap:10px;
+}
+.content--tight{ width:min(960px,94vw) }
+
+/* Selarikan tepi kiri title & toolbar dengan kandungan (12px) */
+.page-title,.log-toolbar{ padding-inline:12px; }
+
+/* Title */
+.page-title{
+  margin:0;
+  font-family:"Fraunces",serif; font-weight:900; font-variation-settings:"opsz" 96;
+  letter-spacing:.01em; color:var(--ink-strong);
+  font-size:clamp(22px,3vw,32px); line-height:1.08;
+}
+
+/* Toolbar */
+.log-toolbar{ display:flex; align-items:center; gap:12px; min-height:var(--h); }
+
+.btn-ghost{
+  height:var(--h); padding:0 14px; border-radius:12px;
+  background:#fff; color:var(--ink);
+  border:1px solid var(--divider); box-shadow:var(--shadow-sm);
+  display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+  transition:box-shadow .15s, transform .06s, border-color .15s;
+}
+.btn-ghost:hover{box-shadow:0 8px 18px rgba(50,29,11,.12); border-color:#DED9CF}
+.btn-ghost:active{transform:translateY(1px)}
+
+/* Pager: ikon SAHAJA — tiada border/box/shadow/outline */
+.spacer{flex:1 1 auto}
+.minipager{display:flex;align-items:center;gap:12px}
+.minipager .btn.icon{
+  background:transparent; border:none; box-shadow:none;
+  width:auto; height:auto; padding:6px; border-radius:8px; /* hit area kecil */
+  display:inline-grid; place-items:center; cursor:pointer;
+  transition:opacity .15s, transform .06s, color .15s;
+}
+.minipager .btn.icon > span,
+.minipager .btn.icon > i{ font-size:16px; color:var(--ink-dim); line-height:1; }
+.minipager .btn.icon:hover > span,
+.minipager .btn.icon:hover > i{ color:var(--ink-strong); }
+.minipager .btn.icon:active{ transform:translateY(1px) }
+.minipager .btn.icon[disabled]{ opacity:.35; pointer-events:none; }
+.minipager .btn.icon:focus{ outline:none; }
+.page-info{color:var(--ink-dim); font-weight:700}
+.hide-sm{display:inline} @media (max-width:640px){ .hide-sm{display:none} }
+
+/* Filter panel */
+.filter-panel{
+  position:absolute; z-index:60; color:var(--ink);
+  background:#fff; border:1px solid var(--divider); border-radius:12px;
+  box-shadow:var(--shadow); padding:12px; min-width:300px; max-width:320px;
+}
+.filter-panel *{ box-sizing:border-box }
+.panel-arrow{
+  position:absolute; width:10px; height:10px; top:-6px; left:18px;
+  background:#fff; transform:rotate(45deg);
+  border-left:1px solid var(--divider); border-top:1px solid var(--divider);
+}
+.filter-panel .row{display:flex; flex-direction:column; gap:6px; margin-bottom:8px}
+.filter-panel .row.two{flex-direction:row; gap:8px}
+.filter-panel .row.two>*{flex:1; min-width:0}
+.filter-panel label{font-size:.86rem; color:var(--ink-dim); font-weight:800; letter-spacing:.02em}
+.filter-panel .input, .filter-panel select{
+  width:100%; height:36px; border:1px solid var(--divider); border-radius:12px;
+  background:#fff; color:var(--ink); padding:0 10px; outline:none; font-size:.95rem;
+  transition:border-color .15s, box-shadow .15s, background .15s;
+}
+.filter-panel .input:focus, .filter-panel select:focus{
+  border-color:var(--btn); box-shadow:0 0 0 4px rgba(148,118,94,.14)
+}
+.filter-panel .actions{display:flex; gap:8px; justify-content:flex-end}
+.filter-panel .btn{
+  height:36px; padding:0 12px; border-radius:12px; background:#fff; color:var(--ink);
+  border:1px solid var(--divider); box-shadow:var(--shadow-sm); cursor:pointer;
+}
+.btn-primary{ background:var(--btn); color:#fff; border-color:transparent }
+
+/* Table frame */
+.table-wrap{
+  background:var(--thead-bg);
+  border:1px solid var(--divider); border-radius:var(--r-lg);
+  box-shadow:var(--shadow-sm);
+  overflow:hidden; min-height:0;
+  display:flex; flex-direction:column;
+}
+
+/* Table blocks */
+.table{
+  width:100%; border-collapse:separate; border-spacing:0; table-layout:fixed;
+  font-size:14px; color:var(--ink);
+}
+.table thead{ display:block; }
+.table tbody{ display:block; height:calc(var(--rows) * var(--row-h)); overflow:hidden; }
+
+/* Kolum grid */
+.table thead tr,
+.table tbody tr{
+  display:grid; grid-template-columns: 160px 180px 1fr;
+}
+
+/* Head */
+.table thead th{
+  background:var(--thead-bg); color:var(--ink-strong); font-weight:900;
+  padding:10px 12px; border-bottom:1px solid var(--divider);
+  height:var(--thead-h); display:flex; align-items:center; text-align:left;
+}
+.table thead th:first-child{ border-top-left-radius:var(--r-lg) }
+.table thead th:last-child { border-top-right-radius:var(--r-lg) }
+
+/* Body rows */
+.table tbody tr{
+  height:var(--row-h); background:#fff; border-bottom:1px solid #F1ECE4;
+}
+.table tbody tr:last-child{ border-bottom:none }
+.table tbody tr:hover{ background:#FAF6F1 }
+
+/* Cells — pastikan semua rata kiri; Detail ikut gaya Action (left) */
+.table tbody td{
+  padding:10px 12px; vertical-align:top; text-align:left;
+  font-size:clamp(12px,0.95vw,14px); line-height:1.25;
+  overflow:hidden; word-break:break-word;
+  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
+}
+.td--mono{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; text-align:left;
+}
+
+/* Empty filler */
+.empty{
+  text-align:center; color:var(--ink-dim); font-style:italic;
+  display:flex; align-items:center; justify-content:center;
+  height:calc(var(--rows) * var(--row-h));
+  background:#fafcf8; border-bottom:none;
+}
+
+/* Mobile */
+@media (max-width:720px){
+  .content{ width:min(96%,640px) }
+  .btn-ghost{ padding:0 12px }
+  .minipager{ gap:10px }
+  .table thead tr, .table tbody tr{ grid-template-columns: 140px 140px 1fr; }
+}

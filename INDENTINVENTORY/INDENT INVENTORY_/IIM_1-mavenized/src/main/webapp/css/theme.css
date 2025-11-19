@@ -1,0 +1,89 @@
+/* ========== Global Theme — Light (MOSKA) + Dark (Romance Pink) ========== */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap');
+
+/* ---------- LIGHT (original MOSKA — unchanged) ---------- */
+:root{
+  --bg:#F4F5F4;
+  --frame:#FDFBF5;
+  --btn:#94765E;
+
+  --accent-soft:#CEBFAC;
+  --accent-ink:#947E6C;
+  --ink-strong:#4D453F;
+
+  --ink:#3C3A37;
+  --ink-dim:#7B746D;
+  --ink-bold:#2A2724;
+
+  --divider:#E7E4DD;
+
+  --card: var(--frame);
+  --line: var(--divider);
+
+  --shadow-sm:0 4px 10px rgba(50,29,11,.06);
+  --shadow:0 12px 36px rgba(50,29,11,.10), 0 6px 18px rgba(50,29,11,.06);
+  --shadow-lg:0 22px 60px rgba(50,29,11,.14);
+  --easing:cubic-bezier(.2,.8,.2,1);
+
+  --r-sm:12px; --r-md:18px; --r-lg:22px;
+  --container-xl:1440px; --container-xxl:1680px;
+
+  --glass:saturate(130%) blur(10px);
+  --page-bg:var(--bg);
+}
+
+/* ---------- Base ---------- */
+*{box-sizing:border-box}
+html,body{height:100%}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--ink);
+  background:var(--bg);
+  font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+
+/* Titles */
+h1,.display,.title-display{
+  font-family:"Fraunces",serif;
+  font-weight:900;
+  font-variation-settings:"opsz" 96;
+  letter-spacing:.01em;
+  color:var(--ink-strong);
+}
+
+/* Cards / Frames */
+.card{
+  background:var(--card);
+  border:1px solid var(--divider);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow);
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  height:46px;padding:0 22px;border-radius:999px;border:none;
+  background:var(--btn); color:#fff; font-weight:800; letter-spacing:.2px;
+  box-shadow:0 12px 28px rgba(0,0,0,.12);
+  transition:transform .22s var(--easing), box-shadow .22s var(--easing), filter .22s var(--easing);
+}
+.btn:hover{transform:translateY(-2px); box-shadow:0 18px 40px rgba(0,0,0,.18); filter:brightness(0.98)}
+.btn:active{transform:translateY(0)}
+
+/* Links & Utilities */
+a{color:var(--ink);text-decoration:none}
+a:hover{opacity:.92}
+.hr{height:1px;background:var(--divider);border:0}
+.muted{color:var(--ink-dim)}
+.text-strong,b,strong{color:var(--ink-bold);font-weight:800}
+
+/* Page frame helpers */
+.page{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.content{width:min(var(--container-xl),92vw);margin:20px auto 40px}
+
+/* Entrance animation */
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:rise .45s var(--easing) both}

@@ -1,0 +1,99 @@
+/* ========== Login Page (Concept-aligned) ========== */
+*{box-sizing:border-box}
+body{
+  margin:0;min-height:100vh;
+  display:flex;justify-content:center;align-items:center;
+  background:
+    radial-gradient(1100px 520px at 15% 8%, rgba(206,191,172,.20), transparent 60%),
+    radial-gradient(900px 480px at 85% 92%, rgba(148,126,108,.12), transparent 60%),
+    var(--bg);
+  padding:56px 24px;
+}
+
+/* Fixed logo (top-left) */
+.header{position:fixed;top:22px;left:28px;z-index:10}
+.header .logo{height:58px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.06))}
+
+/* Wrapper keeps content centered on HD screens */
+.wrapper{
+  width:min(980px,92vw);
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  animation:rise .5s var(--easing) both;
+}
+
+/* Title */
+.page-title{
+  margin:0;
+  font-family:"Fraunces",serif;
+  font-weight:900;
+  font-variation-settings:"opsz" 96;
+  font-size:56px; line-height:1.04; letter-spacing:.01em;
+  color:var(--ink-strong);
+  text-shadow:0 1px 0 rgba(0,0,0,.04);
+  text-align:center;
+}
+
+/* Subtitle */
+.page-subtitle{
+  margin:10px 0 26px;
+  font-size:16px;font-weight:800;letter-spacing:.22px;
+  color:var(--accent-ink);text-align:center;
+}
+
+/* Login card — warm frame */
+.login-card{
+  width:min(540px,92vw);
+  border-radius:26px;
+  padding:48px 40px 38px;
+  background:var(--frame);
+  border:1px solid var(--divider);
+  box-shadow:0 16px 40px rgba(50,29,11,.12), 0 4px 14px rgba(50,29,11,.06);
+  animation:rise .6s var(--easing) both .05s;
+}
+
+/* Input field */
+.field{
+  display:flex;align-items:center;gap:12px;
+  padding:10px 2px 12px;margin:12px 0 22px;
+  border-bottom:2px solid rgba(50,29,11,.14);
+  transition:border-color .22s var(--easing),transform .18s var(--easing);
+}
+.field:focus-within{border-bottom-color:var(--accent-ink);transform:translateY(-1px)}
+.icon{width:22px;height:22px;flex:0 0 22px;display:inline-grid;place-items:center}
+.icon svg{width:100%;height:100%;fill:var(--ink)}
+.input{border:none;background:transparent;outline:none;width:100%;color:var(--ink);font-size:16px;padding:0}
+.input::placeholder{color:rgba(60,58,55,.55)}
+input:-webkit-autofill,input:-webkit-autofill:hover,input:-webkit-autofill:focus{
+  -webkit-box-shadow:0 0 0px 1000px transparent inset;
+  -webkit-text-fill-color:var(--ink);
+  transition:background-color 9999s ease-out;
+}
+
+/* Remember me / helpers */
+.helper-row{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;color:var(--ink);margin:6px 0 26px;
+}
+.helper-row input{accent-color:var(--accent-ink)}
+
+/* Primary action — solid button */
+.btn{
+  width:100%; height:48px;
+  border:none; border-radius:999px;
+  font-weight:900; font-size:16px; letter-spacing:.24px;
+  cursor:pointer;
+  background:var(--btn); color:#fff;
+  box-shadow:0 14px 28px rgba(50,29,11,.12);
+  transition:transform .2s var(--easing), box-shadow .2s var(--easing), filter .2s var(--easing);
+}
+.btn:hover{transform:translateY(-2px); box-shadow:0 20px 40px rgba(50,29,11,.16); filter:brightness(0.98) saturate(1.02)}
+.btn:active{transform:translateY(0)}
+
+/* Error message */
+.error-msg{color:#B3564B;font-size:13px;margin-top:12px}
+
+/* Media tweak for very wide HD */
+@media (min-width:1400px){
+  .page-title{font-size:64px}
+  .login-card{padding:56px 48px}
+}

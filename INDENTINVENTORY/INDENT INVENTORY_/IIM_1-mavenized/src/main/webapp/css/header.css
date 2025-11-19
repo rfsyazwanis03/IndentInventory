@@ -1,0 +1,205 @@
+/* ========== Header — MOSKA Natural Tones (Ghost Icons, QuickScan tone) ========== */
+
+/* Wrapper */
+.hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 12px 26px;
+  background: var(--page-bg);
+  border-bottom: 1px solid var(--divider);
+  box-shadow: 0 2px 6px rgba(50, 29, 11, .04);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.hdr__logo img { height: 44px; display: block }
+
+/* Nav */
+.hdr__nav { display: flex; gap: 26px }
+.hdr__nav a {
+  position: relative;
+  text-decoration: none;
+  color: var(--ink-strong);           /* ← match Quick Scan color */
+  font-size: 14px;
+  font-weight: 600;
+  opacity: .92;
+  transition: opacity .2s var(--easing), transform .2s var(--easing);
+}
+.hdr__nav a:hover { opacity: 1; transform: translateY(-1px) }
+.hdr__nav a.active {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ink-strong);
+}
+/* MOSKA underline */
+.hdr__nav a.active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -8px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--btn);
+}
+
+/* Right cluster */
+.hdr__right { display: flex; align-items: center; gap: 12px }
+
+/* GHOST icon buttons (no visible circle) */
+.iconbtn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  padding: 6px;
+  width: auto;
+  height: auto;
+  border-radius: 8px;
+  display: inline-grid;
+  place-items: center;
+  box-shadow: none;
+  transition: filter .18s var(--easing), background .18s var(--easing);
+  outline: 0;
+}
+.iconbtn:hover {
+  background: rgba(0,0,0,.04);
+  filter: brightness(1.02);
+}
+.iconbtn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(148,118,94,.18);
+  border-radius: 8px;
+}
+.iconbtn i {
+  font-size: 18px;
+  color: var(--ink-strong);     /* ← match Quick Scan ink-strong */
+}
+
+/* Small red dot (unread indicator) */
+.iconbtn .dot {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #d94b3e;
+  border: 2px solid var(--frame);
+  box-shadow: 0 0 0 2px rgba(217,75,62,.2);
+}
+
+/* Dropdown root */
+.dd-root { position: relative }
+.dd-root.open > .dd-card,
+.dd-root:hover > .dd-card {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Card */
+.dd-card {
+  position: absolute;
+  top: calc(100% + 10px);    /* follows ghost icon height */
+  right: 0;
+  min-width: 240px;
+  background: var(--frame);
+  color: var(--ink-strong);
+  border: 1px solid var(--divider);
+  border-radius: 14px;
+  padding: 8px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity .16s var(--easing),
+              transform .16s var(--easing),
+              visibility .16s var(--easing);
+  z-index: 200;
+}
+
+/* Caret */
+.dd-card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  right: 18px;
+  width: 14px;
+  height: 8px;
+  background: var(--frame);
+  border-left: 1px solid var(--divider);
+  border-right: 1px solid var(--divider);
+  border-top: 1px solid transparent;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,.05));
+}
+.dd-root:not(.open) .dd-card::before { display: none }
+
+/* Title */
+.dd-title {
+  font-weight: 800;
+  color: var(--ink-strong);
+  font-size: 13px;
+  padding: 6px 10px;
+  margin: 2px 4px 6px;
+  border-radius: 10px;
+  background: var(--accent-soft);
+  border: 1px solid var(--divider);
+}
+
+/* Items */
+.dd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 280px;
+  overflow: auto;
+}
+.dd-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--ink-strong);
+  transition: background .15s var(--easing),
+              transform .12s var(--easing);
+}
+.dd-item i {
+  width: 16px;
+  text-align: center;
+  color: var(--ink-strong);
+}
+.dd-item:hover { background: #f5f1ec; transform: translateY(-1px) }
+
+.dd-text {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+.dd-empty {
+  padding: 12px 10px;
+  color: var(--ink-strong);
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Footer */
+.dd-footer { text-align: right; padding: 4px 6px 2px }
+.dd-footer .see-more {
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--ink-strong);
+}
+.dd-footer .see-more:hover { opacity: .9 }
+
+/* Safety: prevent ghost blocks */
+.iconbtn::before,
+.iconbtn::after { content: none !important }
